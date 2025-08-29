@@ -40,17 +40,15 @@ class SpeakerDiarizer:
         
         try:
             import diart
-            from diart.inference import Diarization
+            from diart import SpeakerDiarization
             
             num_speakers = self.diarization_config.get("num_speakers", 2)
             device = self.diarization_config.get("device", "cpu")
             
             self.logger.info(f"正在初始化说话人分离引擎: {num_speakers}个说话人 (设备: {device})")
             
-            self.engine = Diarization(
-                num_speakers=num_speakers,
-                device=device
-            )
+            # 使用正确的 diart API
+            self.engine = SpeakerDiarization()
             
             self.logger.success("说话人分离引擎初始化成功")
             
@@ -87,12 +85,16 @@ class SpeakerDiarizer:
         self._load_engine()
         
         try:
+            import librosa
             from diart.sources import FileAudioSource
             
             self.logger.info(f"开始说话人分离: {audio_file.name}")
             
+            # 获取音频文件信息
+            audio_data, sample_rate = librosa.load(str(audio_file), sr=None)
+            
             # 创建音频源
-            source = FileAudioSource(str(audio_file))
+            source = FileAudioSource(str(audio_file), sample_rate)
             
             # 执行分离
             result = self.engine(source)

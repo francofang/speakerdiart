@@ -1,0 +1,17 @@
+# 临时配置 - 跳过说话人分离
+whisper:
+  model_size: small
+  device: cpu
+  language: zh
+
+diarization:
+  enabled: false  # 跳过说话人分离步骤
+
+output:
+  formats:
+    - txt
+    - vtt
+  export_intermediate: true
+
+logging:
+  level: INFO

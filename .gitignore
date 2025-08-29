@@ -1,77 +1,33 @@
-# Exclude all parent directories and system files
-../
+# Logs and temporary files
+logs/
+*.log
 
-# Python
+# Output files
+outputs/
+temp_*.yaml
+
+# Python cache
 __pycache__/
-*.py[cod]
-*$py.class
-*.so
+*.pyc
+*.pyo
+*.pyd
 .Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-pip-wheel-metadata/
-share/python-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
+*.so
 
 # Virtual environments
-.env
-.venv
-env/
 venv/
-ENV/
-env.bak/
-venv.bak/
+env/
+.env
 
-# IDE
+# IDE files
 .vscode/
 .idea/
 *.swp
 *.swo
-*~
 
-# OS
+# System files
 .DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
 Thumbs.db
-desktop.ini
 
-# Logs
-*.log
-logs/*.log
-
-# Output files
-outputs/
-*.wav
-*.mp3
-*.mp4
-*.vtt
-*.rttm
-*.txt
-!requirements.txt
-!*.md
-
-# Personal notes and temporary files
-李俊慧老师的录音听写.md
-*老师*.md
-*录音*.md
-
-# Temporary files
-*.tmp
-*.temp
+# User configuration (contains personal settings/tokens)
+config/user.yaml
