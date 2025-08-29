@@ -1,0 +1,77 @@
+# 默认配置文件
+app:
+  name: "广东话采访处理系统"
+  version: "2.0.0"
+  language: "zh-CN"
+
+# Whisper 转录配置
+whisper:
+  model_size: "small"  # tiny, base, small, medium, large, large-v2, large-v3
+  device: "cpu"       # cpu, cuda
+  language: "zh"      # 语言代码
+  task: "transcribe"  # transcribe, translate
+  vad_filter: true
+  vad_parameters:
+    min_silence_duration_ms: 300
+    max_speech_duration_s: 30
+
+# 说话人分离配置
+diarization:
+  num_speakers: 2       # 默认说话人数量
+  device: "cpu"        # cpu, cuda
+  clustering_algorithm: "spectral"
+  min_segment_length: 0.5  # 最小片段长度(秒)
+
+# ChatGPT 后处理配置
+chatgpt:
+  enabled: false
+  model: "gpt-4o-mini"
+  temperature: 0.2
+  max_tokens: 4000
+  system_prompt: |
+    你是中文编辑助手。请在不改变原意的前提下：
+    1) 按自然语气断句分段
+    2) 补充合理标点
+    3) 保留并规范化说话人标签（如[SPEAKER_00] → 主持人，[SPEAKER_01] → 受访者）
+    输出纯文本，不要解释。
+
+# 输出配置
+output:
+  directory: "outputs"
+  formats:
+    - "txt"           # 纯文本
+    - "vtt"          # WebVTT字幕
+    - "rttm"         # 说话人时间标记
+  export_intermediate: false
+  speaker_labels:
+    SPEAKER_00: "主持人"
+    SPEAKER_01: "受访者"
+
+# 支持的音频格式
+audio:
+  supported_extensions:
+    - ".wav"
+    - ".mp3" 
+    - ".m4a"
+    - ".mp4"
+    - ".flac"
+    - ".aac"
+    - ".wma"
+    - ".mkv"
+    - ".mov"
+
+# 日志配置
+logging:
+  level: "INFO"       # DEBUG, INFO, WARNING, ERROR
+  format: "{time:YYYY-MM-DD HH:mm:ss} | {level} | {name}:{function}:{line} | {message}"
+  rotation: "100 MB"
+  retention: "1 week"
+
+# GUI配置
+gui:
+  window_title: "广东话采访处理系统"
+  default_width: 800
+  default_height: 600
+  theme: "default"
+  font_size: 12
+  auto_save_settings: true
